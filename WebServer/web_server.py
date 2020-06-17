@@ -1,3 +1,5 @@
+from multiprocessing import process
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 from flask_restful import Resource, Api
@@ -10,7 +12,6 @@ import joblib
 import json
 import pandas as pd
 
-
 # Import python file with relative path
 DATA_FRAME_SELECTOR_PATH = Path(
     __file__).parent.absolute().parents[0] / 'Model'
@@ -22,14 +23,14 @@ importlib.import_module('data_frame_selector', 'DataFrameSelector')
 CURRENT_DIR = Path(__file__).parent.absolute().parents[0]
 # Model trained with all attributes
 MODEL_ALL_PATH = CURRENT_DIR / 'Model' / \
-    'model' / 'gradient_boosting_classifier_all.pkl'
+                 'model' / 'gradient_boosting_classifier_all.pkl'
 PIPELINE_ALL_PATH = CURRENT_DIR / 'Model' / 'pipeline' / \
-    'transform_pipeline_all.pkl'
+                    'transform_pipeline_all.pkl'
 # Model trained with bank data attributes only
 MODEL_BANK_DATA_PATH = CURRENT_DIR / 'Model' / \
-    'model' / 'gradient_boosting_classifier_bank_data.pkl'
+                       'model' / 'gradient_boosting_classifier_bank_data.pkl'
 PIPELINE_BANK_DATA_PATH = CURRENT_DIR / 'Model' / 'pipeline' / \
-    'transform_pipeline_bank_data.pkl'
+                          'transform_pipeline_bank_data.pkl'
 
 # Load the models
 model_all = joblib.load(MODEL_ALL_PATH)
